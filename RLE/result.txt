@@ -1,0 +1,32 @@
+Start string: 18092019aaaaaaaaaaa#bbddd
+Cod string ESCAPE: 18092019#a##bbddd
+DCod string ESCAPE: 18092019aaaaaaaaaaa#bbddd
+Cod string JUMP: \18092019oac#fbgd
+DCod string JUMP: 18092019aaaaaaaaaaa#bbddd
+**************************************
+Start string: 18092019aaaaaaaaaaa#bbddd
+DCod string ESCAPE: 18092019aaaaaaaaaaa#bbddd
+DCod string JUMP: 18092019aaaaaaaaaaa#bbddd
+**************************************
+Start string: 18092019aaaaaaaaaaa#bbddd
+DCod string ESCAPE: 18092019aaaaaaaaaaa#bbddd
+DCod string JUMP: 18092019aaaaaaaaaaa#bbddd
+**************************************
+
+Start string: 18092019aaaaaaaaaaa#bbddd
+1000000000 + 2000000000 = 3000000000
+DCod string ESCAPE: 18092019aaaaaaaaaaa#bbddd
+1000000000 + 2000000000 = 3000000000
+DCod string JUMP: 18092019aaaaaaaaaaa#bbddd
+1000000000 + 2000000000 = 3000000000
+**************************************
+Start string: 18092019aaaaaaaaaaa#bbddd
+1000000000 + 2000000000 = 3000000000
+DCod string ESCAPE: 2222222222222222222222222222222222222222222222222ccc
+DCod string JUMP: 18092019aaaaaaaaaaa#bbddd
+1000000000 + 2000000000 = 3000000000
+**************************************
+Start string: #12ccc
+DCod string ESCAPE: #12ccc
+DCod string JUMP: #12ccc
+**************************************

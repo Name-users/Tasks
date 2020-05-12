@@ -1,0 +1,177 @@
+var file =new ActiveXObject('Scripting.FileSystemObject'); //возможность открыть файл
+var Gary = file.OpenTextFile('Gary.txt') 
+Gary = Gary.ReadAll()
+Gary=Gary.toLowerCase()
+var str = file.OpenTextFile('string.txt')
+str = str.ReadAll() //считываем весь файл
+
+//str = WScript.StdIn.ReadLine();
+shift=Number(WScript.StdIn.ReadLine());
+
+alph=[]
+GT=[]
+LT=[]
+alphString="abcdefghijklmnopqrstuvwxyz0123465789()., \"\'<>[]{}\\/*-:"
+//alphGT=[]
+for(var i = 97; i<97+26;i++){ //буквы по порядку
+	alph[String.fromCharCode(i)]=0
+	GT[String.fromCharCode(i)]=0
+	//alphGT[String.fromCharCode(i)]=0
+	LT[String.fromCharCode(i)]=0
+}
+for (var i =0; i<Gary.length;i++){
+	alph[Gary.charAt(i)]=0
+	GT[Gary.charAt(i)]=0
+	LT[Gary.charAt(i)]=0
+	//GT[Gary.charAt(i)]=0
+}
+for (var i =0; i<Gary.length;i++){
+	GT[Gary.charAt(i)]+=1
+}
+for (var l in GT){
+	GT[l]=GT[l]/Gary.length
+}
+
+count=0
+for (var l in alph){
+	count++
+	alph[l]=count
+}
+Gtsum=0
+/*for (var l in alph){
+	WScript.echo(l+" "+alph[l]+" "+GT[l])
+	Gtsum+=GT[l]
+}
+WScript.echo(Gtsum)*/
+
+shift=shift%count
+result=WorkWithString(str,shift)
+
+function WorkWithString(str,shift){
+	var result=""
+for (var i=0;i<str.length;i++){
+	var sumbol=str.charAt(i)
+	var reg=false
+	if (sumbol == sumbol.toUpperCase()){
+		reg=true
+		sumbol=sumbol.toLowerCase()
+		//WScript.echo(sumbol)
+	}
+	if (sumbol.toLowerCase() == sumbol.toUpperCase()){
+		reg=false
+	}
+	sumbol=FShift(alph,sumbol,shift,count)
+	if ((reg)&&(alph[sumbol]<=26))
+		sumbol=sumbol.toUpperCase()
+	result+=sumbol
+
+}
+return result
+}
+WScript.echo("Result "+result)
+
+function FShift(array,sumbol,localshift,length){
+	//WScript.echo(sumbol)
+	var local = array[sumbol]
+	if (localshift<0)
+		local=length-Math.abs(local+localshift)%length
+	else local=(local+localshift)%(length)
+	for (var l in array)
+		if (array[l]==local) 
+			return l
+}
+
+rescopy=result.toLowerCase()
+for (var i =0; i<rescopy.length;i++){
+	LT[rescopy.charAt(i)]=0
+}
+for (var i =0; i<rescopy.length;i++){
+	LT[rescopy.charAt(i)]+=1
+}
+for (var l in LT){
+	LT[l]=LT[l]/rescopy.length
+}
+countLT=0
+for (var l in LT)
+	countLT++
+LTsum=0
+/*for (var l in LT){
+	WScript.echo(l+" "+LT[l])
+	LTsum+=LT[l]
+}
+WScript.echo("LTsum="+LTsum)*/
+
+newshift=Number.MAX_VALUE
+Sum=Number.MAX_VALUE
+
+for (var sh=1;sh<count;sh++){ //длинна алфавита со спец симвалами
+	var sum=0
+	/*for (var i=0; i<rescopy.length;i++){//беги по алфавиту
+		var sumb=FShift(alph,rescopy.charAt(i),sh,count)
+		sum=sum+(GT[sumb]-LT[rescopy.charAt(i)])*(GT[sumb]-LT[rescopy.charAt(i)])
+	}*/
+	for (var l in alph){ //бежим по алфавиту
+		var sumb=FShift(alph,l,sh,count-1) //получаем символ из всего алфавита со сдвигом
+		sum=sum+(GT[sumb]-LT[l])*(GT[sumb]-LT[l])
+		WScript.echo(GT[sumb]+" "+sumb+" "+LT[l]+" "+l)
+	}
+	if (sum<Sum){
+		Sum=sum
+		newshift=sh
+	}
+}
+newshift=parseInt(newshift)
+WScript.echo(newshift)
+WScript.echo("Dresult "+WorkWithString(result,count-newshift))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+dresult=""
+for (var i=0;i<result.length;i++){
+	var index=-100
+	var sumbol=result.charAt(i)
+	var reg=false
+	if (sumbol == sumbol.toUpperCase()){
+		reg=true
+		sumbol=sumbol.toLowerCase()
+		WScript.echo(sumbol)
+	}
+	//if (!alph[sumbol]) continue
+	for (var l=0;l<alph.length;l++)
+		if (alph[l]==sumbol) {index=l-shift; break}
+	if (index==-100) {dresult+=sumbol; continue}
+	while (index<0) 
+		index+=26
+	sumbol=alph[index]
+	if (reg) 
+		sumbol=sumbol.toUpperCase()
+	dresult+=sumbol
+
+}
+WScript.echo("dresult "+dresult)
+*/
